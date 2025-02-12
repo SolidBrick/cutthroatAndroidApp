@@ -8,7 +8,9 @@ import androidx.core.view.ViewCompat
 import android.widget.EditText
 import androidx.core.view.WindowInsetsCompat
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +32,13 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Name cannot be blank", Toast.LENGTH_SHORT).show()
         } else {
             println(text)
+            val infoCard = findViewById<CardView>(R.id.playerInfo1)
+            val addPlayerCard = findViewById<CardView>(R.id.addPlayer1Card)
+            val name: TextView = findViewById(R.id.playerName1)
+            name.text = text
+            infoCard.visibility = View.VISIBLE
+            addPlayerCard.visibility = View.GONE
+
         }
 
     }
@@ -50,5 +59,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             println(text)
         }
+    }
+    fun resetPlayer1(view: View?) {
+        val infoCard = findViewById<CardView>(R.id.playerInfo1)
+        val addPlayerCard = findViewById<CardView>(R.id.addPlayer1Card)
+        val nameInput = findViewById<EditText>(R.id.nameInput1)
+        nameInput.setText("Player 1")
+        infoCard.visibility = View.GONE
+        addPlayerCard.visibility = View.VISIBLE
+        // add whatever score change or other reset
     }
 }
