@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
@@ -23,7 +24,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -75,7 +77,8 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -83,7 +86,7 @@
             android:padding="16dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/resetPlayer1Btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -99,7 +102,7 @@
 
             <TextView
                 android:id="@+id/playerName1"
-                android:layout_width="173dp"
+                android:layout_width="270dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -110,6 +113,64 @@
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/addScore1"
+                android:layout_width="80dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:editable="false"
+                android:gravity="bottom|center"
+                android:onClick="incScore1"
+                android:text="+"
+                android:textSize="32sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerName1" />
+
+            <TextView
+                android:id="@+id/subtractScore1"
+                android:layout_width="80dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="110dp"
+                android:clickable="true"
+                android:editable="false"
+                android:gravity="bottom|clip_horizontal|center"
+                android:onClick="decrScore1"
+                android:text="-"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toEndOf="@+id/addScore1"
+                app:layout_constraintStart_toStartOf="@+id/addScore1"
+                app:layout_constraintTop_toBottomOf="@+id/playerName1" />
+
+            <EditText
+                android:id="@+id/p1Score"
+                android:layout_width="52dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="4dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="5"
+                android:fadeScrollbars="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:singleLine="true"
+                android:text="5"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toTopOf="@+id/subtractScore1"
+                app:layout_constraintEnd_toEndOf="@+id/addScore1"
+                app:layout_constraintStart_toStartOf="@+id/addScore1"
+                app:layout_constraintTop_toBottomOf="@+id/addScore1"
+                app:layout_constraintVertical_bias="0.0" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -128,27 +189,6 @@
         app:layout_constraintVertical_bias="0.3333333" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/playerInfo2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="@dimen/fab_margin"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/botDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topDivider">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp" />
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/addPlayer2Card"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -156,6 +196,7 @@
         android:layout_marginTop="@dimen/fab_margin"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="@dimen/fab_margin"
+        android:visibility="visible"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toTopOf="@+id/botDivider"
@@ -172,6 +213,7 @@
                 android:id="@+id/addPlayerBtn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="addPlayer2"
                 android:text="@string/addPlayer"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -195,6 +237,60 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/playerInfo2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:visibility="gone"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/botDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topDivider"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/resetPlayer2Btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:cropToPadding="false"
+                android:onClick="resetPlayer2"
+                app:backgroundTint="@color/white"
+                app:fabCustomSize="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/playerName2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/playerName2"
+                app:rippleColor="@color/material_dynamic_neutral20"
+                app:srcCompat="@android:drawable/ic_delete" />
+
+            <TextView
+                android:id="@+id/playerName2"
+                android:layout_width="270dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:lines="1"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:text="12345678901234567890123"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <View
         android:id="@+id/botDivider"
@@ -212,29 +308,6 @@
         app:layout_constraintVertical_bias="0.6666666" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/playerInfo3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="@dimen/fab_margin"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botDivider">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp" />
-
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/addPlayer3Card"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -242,6 +315,7 @@
         android:layout_marginTop="@dimen/fab_margin"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="@dimen/fab_margin"
+        android:visibility="visible"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -258,6 +332,7 @@
                 android:id="@+id/addPlayerBtn3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="addPlayer3"
                 android:text="@string/addPlayer"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -282,6 +357,60 @@
 
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/playerInfo3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botDivider"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/resetPlayer3Btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:cropToPadding="false"
+                android:onClick="resetPlayer3"
+                app:backgroundTint="@color/white"
+                app:fabCustomSize="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/playerName3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/playerName3"
+                app:rippleColor="@color/material_dynamic_neutral20"
+                app:srcCompat="@android:drawable/ic_delete" />
+
+            <TextView
+                android:id="@+id/playerName3"
+                android:layout_width="270dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:lines="1"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:text="12345678901234567890123"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
