@@ -83,7 +83,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp">
+            android:padding="8dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/resetPlayer1Btn"
@@ -119,7 +119,7 @@
                 android:layout_width="80dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:clickable="true"
                 android:editable="false"
                 android:gravity="bottom|center"
@@ -148,6 +148,7 @@
                 android:id="@+id/p1Score"
                 android:layout_width="52dp"
                 android:layout_height="0dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:background="@android:color/transparent"
                 android:clickable="false"
@@ -170,6 +171,74 @@
                 app:layout_constraintStart_toStartOf="@+id/addScore1"
                 app:layout_constraintTop_toBottomOf="@+id/addScore1"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/ballGroupingContainer1"
+                android:layout_width="75dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                app:chipSpacingVertical="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/subtractScore1"
+                app:layout_constraintStart_toEndOf="@+id/p1Score"
+                app:layout_constraintTop_toTopOf="@+id/addScore1">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/firstGrouping1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="clip_vertical"
+                    android:text="1 - 5"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="#C79636" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/secondGrouping2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="6 - 10"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="#538719" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/thirdGrouping3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="11 - 15"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="#D01010" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wins"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.8" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Score"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.85"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -259,7 +328,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp">
+            android:padding="8dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/resetPlayer2Btn"
@@ -379,7 +448,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="8dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/resetPlayer3Btn"
