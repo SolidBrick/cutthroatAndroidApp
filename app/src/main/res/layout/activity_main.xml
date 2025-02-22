@@ -172,6 +172,57 @@
                 app:layout_constraintTop_toBottomOf="@+id/addScore1"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <EditText
+                android:id="@+id/p1TotalScore"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="5"
+                android:fadeScrollbars="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:singleLine="true"
+                android:text="0"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="@+id/p1Score"
+                app:layout_constraintEnd_toEndOf="@+id/totalScore1"
+                app:layout_constraintHorizontal_bias="0.51"
+                app:layout_constraintStart_toStartOf="@+id/totalScore1"
+                app:layout_constraintTop_toBottomOf="@+id/addScore1" />
+
+            <EditText
+                android:id="@+id/p1Wins"
+                android:layout_width="60dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="5"
+                android:fadeScrollbars="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:singleLine="true"
+                android:text="0"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="@+id/p1TotalScore"
+                app:layout_constraintEnd_toEndOf="@+id/wins1"
+                app:layout_constraintStart_toStartOf="@+id/wins1"
+                app:layout_constraintTop_toTopOf="@+id/p1TotalScore" />
+
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/ballGroupingContainer1"
                 android:layout_width="75dp"
@@ -187,26 +238,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="clip_vertical"
+                    android:onClick="claimFirstGroup1"
                     android:text="1 - 5"
                     android:textAlignment="center"
                     android:textSize="14sp"
                     app:chipBackgroundColor="#C79636" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/secondGrouping2"
+                    android:id="@+id/secondGrouping1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:onClick="claimSecondGroup1"
                     android:text="6 - 10"
                     android:textAlignment="center"
                     android:textSize="14sp"
                     app:chipBackgroundColor="#538719" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/thirdGrouping3"
+                    android:id="@+id/thirdGrouping1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:onClick="claimThirdGroup1"
                     android:text="11 - 15"
                     android:textAlignment="center"
                     android:textSize="14sp"
@@ -215,30 +269,27 @@
             </com.google.android.material.chip.ChipGroup>
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/wins1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:text="Wins"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.8"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.8" />
+                app:layout_constraintBottom_toBottomOf="@+id/totalScore1"
+                app:layout_constraintStart_toEndOf="@+id/totalScore1"
+                app:layout_constraintTop_toTopOf="@+id/totalScore1"
+                app:layout_constraintVertical_bias="0.71000004" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/totalScore1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:text="Total Score"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.85"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.4" />
+                app:layout_constraintStart_toEndOf="@+id/ballGroupingContainer1"
+                app:layout_constraintTop_toBottomOf="@+id/playerName1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -256,55 +307,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3333333" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/addPlayer2Card"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="@dimen/fab_margin"
-        android:visibility="visible"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/botDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topDivider">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
-
-            <Button
-                android:id="@+id/addPlayerBtn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="addPlayer2"
-                android:text="@string/addPlayer"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.75" />
-
-            <EditText
-                android:id="@+id/nameInput2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:ems="10"
-                android:inputType="text"
-                android:selectAllOnFocus="true"
-                android:text="@string/Player2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/playerInfo2"
@@ -358,6 +360,231 @@
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/addScore2"
+                android:layout_width="80dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:clickable="true"
+                android:editable="false"
+                android:gravity="bottom|center"
+                android:onClick="incScore2"
+                android:text="+"
+                android:textSize="32sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerName2" />
+
+            <TextView
+                android:id="@+id/subtractScore2"
+                android:layout_width="80dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="110dp"
+                android:clickable="true"
+                android:editable="false"
+                android:gravity="bottom|clip_horizontal|center"
+                android:onClick="decrScore2"
+                android:text="-"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toEndOf="@+id/addScore2"
+                app:layout_constraintTop_toBottomOf="@+id/playerName2" />
+
+            <EditText
+                android:id="@+id/p2Score"
+                android:layout_width="52dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="5"
+                android:fadeScrollbars="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:singleLine="true"
+                android:text="5"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toTopOf="@+id/subtractScore2"
+                app:layout_constraintEnd_toEndOf="@+id/addScore2"
+                app:layout_constraintStart_toStartOf="@+id/addScore2"
+                app:layout_constraintTop_toBottomOf="@+id/addScore2" />
+
+            <EditText
+                android:id="@+id/p2TotalScore"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="5"
+                android:fadeScrollbars="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:singleLine="true"
+                android:text="0"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="@+id/p2Score"
+                app:layout_constraintEnd_toEndOf="@+id/totalScore2"
+                app:layout_constraintStart_toStartOf="@+id/totalScore2"
+                app:layout_constraintTop_toBottomOf="@+id/totalScore2" />
+
+            <EditText
+                android:id="@+id/p2Wins"
+                android:layout_width="60dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="5"
+                android:fadeScrollbars="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:singleLine="true"
+                android:text="0"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="@+id/p2TotalScore"
+                app:layout_constraintEnd_toEndOf="@+id/wins2"
+                app:layout_constraintStart_toStartOf="@+id/wins2"
+                app:layout_constraintTop_toBottomOf="@+id/wins2" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/ballGroupingContainer2"
+                android:layout_width="75dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                app:chipSpacingVertical="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/subtractScore2"
+                app:layout_constraintStart_toEndOf="@+id/p2Score"
+                app:layout_constraintTop_toTopOf="@+id/addScore2"
+                app:layout_constraintVertical_bias="0.0">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/firstGrouping2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="clip_vertical"
+                    android:onClick="claimFirstGroup2"
+                    android:text="1 - 5"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="#C79636"
+                    app:chipStrokeColor="@color/white"
+                    app:chipStrokeWidth="0dp" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/secondGrouping2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="claimSecondGroup2"
+                    android:text="6 - 10"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="#538719" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/thirdGrouping2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="claimThirdGroup2"
+                    android:text="11 - 15"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="#D01010" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/wins2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Wins"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/totalScore2"
+                app:layout_constraintStart_toEndOf="@+id/totalScore2"
+                app:layout_constraintTop_toTopOf="@+id/totalScore2"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/totalScore2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Total Score"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/ballGroupingContainer2"
+                app:layout_constraintTop_toBottomOf="@+id/playerName2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/addPlayer2Card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:visibility="visible"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/botDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topDivider"
+        tools:visibility="invisible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <Button
+                android:id="@+id/addPlayerBtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="addPlayer2"
+                android:text="@string/addPlayer"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.75" />
+
+            <EditText
+                android:id="@+id/nameInput2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:ems="10"
+                android:inputType="text"
+                android:selectAllOnFocus="true"
+                android:text="@string/Player2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -478,6 +705,183 @@
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/addScore3"
+                android:layout_width="80dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:clickable="true"
+                android:editable="false"
+                android:gravity="bottom|center"
+                android:onClick="incScore3"
+                android:text="+"
+                android:textSize="32sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/playerName3" />
+
+            <TextView
+                android:id="@+id/subtractScore3"
+                android:layout_width="80dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="110dp"
+                android:clickable="true"
+                android:editable="false"
+                android:gravity="bottom|clip_horizontal|center"
+                android:onClick="decrScore3"
+                android:text="-"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toEndOf="@+id/addScore3"
+                app:layout_constraintStart_toStartOf="@+id/addScore3"
+                app:layout_constraintTop_toBottomOf="@+id/playerName3" />
+
+            <EditText
+                android:id="@+id/p3Score"
+                android:layout_width="52dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="5"
+                android:fadeScrollbars="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:singleLine="true"
+                android:text="5"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toTopOf="@+id/subtractScore3"
+                app:layout_constraintEnd_toEndOf="@+id/addScore3"
+                app:layout_constraintStart_toStartOf="@+id/addScore3"
+                app:layout_constraintTop_toBottomOf="@+id/addScore3"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/p3TotalScore"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="5"
+                android:fadeScrollbars="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:singleLine="true"
+                android:text="0"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="@+id/p3Score"
+                app:layout_constraintEnd_toEndOf="@+id/totalScore3"
+                app:layout_constraintHorizontal_bias="0.51"
+                app:layout_constraintStart_toStartOf="@+id/totalScore3"
+                app:layout_constraintTop_toBottomOf="@+id/addScore3" />
+
+            <EditText
+                android:id="@+id/p3Wins"
+                android:layout_width="60dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="5"
+                android:fadeScrollbars="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center_horizontal"
+                android:inputType="none"
+                android:isScrollContainer="false"
+                android:nestedScrollingEnabled="false"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:singleLine="true"
+                android:text="0"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="@+id/p3TotalScore"
+                app:layout_constraintEnd_toEndOf="@+id/wins3"
+                app:layout_constraintStart_toStartOf="@+id/wins3"
+                app:layout_constraintTop_toTopOf="@+id/p3TotalScore" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/ballGroupingContainer3"
+                android:layout_width="75dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                app:chipSpacingVertical="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/subtractScore3"
+                app:layout_constraintStart_toEndOf="@+id/p3Score"
+                app:layout_constraintTop_toTopOf="@+id/addScore3">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/firstGrouping3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="clip_vertical"
+                    android:onClick="claimFirstGroup3"
+                    android:text="1 - 5"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="#C79636" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/secondGrouping3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="claimSecondGroup3"
+                    android:text="6 - 10"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="#538719" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/thirdGrouping3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="claimThirdGroup3"
+                    android:text="11 - 15"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    app:chipBackgroundColor="#D01010" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/wins3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="Wins"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/totalScore3"
+                app:layout_constraintStart_toEndOf="@+id/totalScore3"
+                app:layout_constraintTop_toTopOf="@+id/totalScore3"
+                app:layout_constraintVertical_bias="0.71000004" />
+
+            <TextView
+                android:id="@+id/totalScore3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Total Score"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/ballGroupingContainer3"
+                app:layout_constraintTop_toBottomOf="@+id/playerName3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
