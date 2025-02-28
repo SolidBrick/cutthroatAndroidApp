@@ -1,7 +1,10 @@
 package com.example.myapplication
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -66,6 +69,8 @@ class MainActivity : AppCompatActivity() {
             infoCard.visibility = View.VISIBLE
             addPlayerCard.visibility = View.GONE
             activePlayers++
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(editText.windowToken, 0)
         }
 
     }
@@ -85,6 +90,8 @@ class MainActivity : AppCompatActivity() {
             infoCard.visibility = View.VISIBLE
             addPlayerCard.visibility = View.GONE
             activePlayers++
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(editText.windowToken, 0)
         }
     }
 
@@ -103,6 +110,8 @@ class MainActivity : AppCompatActivity() {
             infoCard.visibility = View.VISIBLE
             addPlayerCard.visibility = View.GONE
             activePlayers++
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(editText.windowToken, 0)
         }
     }
 
@@ -321,7 +330,7 @@ class MainActivity : AppCompatActivity() {
         if (activePlayers != 3) {
             return
         }
-        resetConfirm(1)
+        resetConfirm(3)
         score3 -= 1
         if (score3 >= 0) {
 
