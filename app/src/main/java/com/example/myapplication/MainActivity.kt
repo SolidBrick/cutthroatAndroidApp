@@ -1,7 +1,10 @@
 package com.example.myapplication
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -66,6 +69,8 @@ class MainActivity : AppCompatActivity() {
             infoCard.visibility = View.VISIBLE
             addPlayerCard.visibility = View.GONE
             activePlayers++
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(editText.windowToken, 0)
         }
 
     }
@@ -85,6 +90,8 @@ class MainActivity : AppCompatActivity() {
             infoCard.visibility = View.VISIBLE
             addPlayerCard.visibility = View.GONE
             activePlayers++
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(editText.windowToken, 0)
         }
     }
 
@@ -103,6 +110,8 @@ class MainActivity : AppCompatActivity() {
             infoCard.visibility = View.VISIBLE
             addPlayerCard.visibility = View.GONE
             activePlayers++
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(editText.windowToken, 0)
         }
     }
 
@@ -114,6 +123,12 @@ class MainActivity : AppCompatActivity() {
         infoCard.visibility = View.GONE
         addPlayerCard.visibility = View.VISIBLE
         resetScoresAndGroupings()
+        totalScore1 = 0
+        val totalScore1Text = findViewById<TextView>(R.id.p1TotalScore)
+        totalScore1Text.text = totalScore1.toString()
+        val winCount = findViewById<TextView>(R.id.p1Wins)
+        winCount.text = totalWins1.toString()
+        score1 = 0
         activePlayers--
     }
 
@@ -125,6 +140,12 @@ class MainActivity : AppCompatActivity() {
         infoCard.visibility = View.GONE
         addPlayerCard.visibility = View.VISIBLE
         resetScoresAndGroupings()
+        totalScore2 = 0
+        val totalScore2Text = findViewById<TextView>(R.id.p2TotalScore)
+        totalScore2Text.text = totalScore2.toString()
+        val winCount = findViewById<TextView>(R.id.p2Wins)
+        winCount.text = totalWins2.toString()
+        score2 = 0
         activePlayers--
     }
 
@@ -136,6 +157,12 @@ class MainActivity : AppCompatActivity() {
         infoCard.visibility = View.GONE
         addPlayerCard.visibility = View.VISIBLE
         resetScoresAndGroupings()
+        totalScore3 = 0
+        val totalScore3Text = findViewById<TextView>(R.id.p3TotalScore)
+        totalScore3Text.text = totalScore3.toString()
+        val winCount = findViewById<TextView>(R.id.p3Wins)
+        winCount.text = totalWins3.toString()
+        score3 = 0
         activePlayers--
     }
 
@@ -226,7 +253,7 @@ class MainActivity : AppCompatActivity() {
             val scoreCount = findViewById<TextView>(R.id.p2Score)
             scoreCount.text = score2.toString()
         }
-        if (player != 1 && score3 <= 0) {
+        if (player != 3 && score3 <= 0) {
             score3 = 1
             val scoreCount = findViewById<TextView>(R.id.p3Score)
             scoreCount.text = score3.toString()
@@ -321,7 +348,7 @@ class MainActivity : AppCompatActivity() {
         if (activePlayers != 3) {
             return
         }
-        resetConfirm(1)
+        resetConfirm(3)
         score3 -= 1
         if (score3 >= 0) {
 
