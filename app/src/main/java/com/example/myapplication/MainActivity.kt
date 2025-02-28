@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private var p1Name = "Player 1"
     private var p2Name = "Player 2"
     private var p3Name = "Player 3"
+    private var activePlayers = 0
 
     private var firstGroupClaimed = false
     private var secondGroupClaimed = false
@@ -35,7 +36,6 @@ class MainActivity : AppCompatActivity() {
     private var p1Claimed = false
     private var p2Claimed = false
     private var p3Claimed = false
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             name.text = text
             infoCard.visibility = View.VISIBLE
             addPlayerCard.visibility = View.GONE
+            activePlayers++
         }
 
     }
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             name.text = text
             infoCard.visibility = View.VISIBLE
             addPlayerCard.visibility = View.GONE
-
+            activePlayers++
         }
     }
 
@@ -101,6 +102,7 @@ class MainActivity : AppCompatActivity() {
             name.text = text
             infoCard.visibility = View.VISIBLE
             addPlayerCard.visibility = View.GONE
+            activePlayers++
         }
     }
 
@@ -111,7 +113,8 @@ class MainActivity : AppCompatActivity() {
         nameInput.setText(p1Name)
         infoCard.visibility = View.GONE
         addPlayerCard.visibility = View.VISIBLE
-        // add whatever score change or other reset
+        resetScoresAndGroupings()
+        activePlayers--
     }
 
     fun resetPlayer2(view: View?) {
@@ -121,7 +124,8 @@ class MainActivity : AppCompatActivity() {
         nameInput.setText(p2Name)
         infoCard.visibility = View.GONE
         addPlayerCard.visibility = View.VISIBLE
-        // add whatever score change or other reset
+        resetScoresAndGroupings()
+        activePlayers--
     }
 
     fun resetPlayer3(view: View?) {
@@ -131,10 +135,8 @@ class MainActivity : AppCompatActivity() {
         nameInput.setText(p3Name)
         infoCard.visibility = View.GONE
         addPlayerCard.visibility = View.VISIBLE
-
         resetScoresAndGroupings()
-
-         // add whatever score change or other reset
+        activePlayers--
     }
 
     fun resetScoresAndGroupings() {
@@ -148,21 +150,6 @@ class MainActivity : AppCompatActivity() {
         scoreCount2.text = score2.toString()
         val scoreCount3 = findViewById<TextView>(R.id.p3Score)
         scoreCount3.text = score3.toString()
-
-
-    }
-
-    fun gameOver() {
-        totalScore1 += score1
-        totalScore2 += score2
-        totalScore3 += score3
-
-        val totalScore1Text = findViewById<TextView>(R.id.p1TotalScore)
-        totalScore1Text.text = totalScore1.toString()
-        val totalScore2Text = findViewById<TextView>(R.id.p2TotalScore)
-        totalScore2Text.text = totalScore2.toString()
-        val totalScore3Text = findViewById<TextView>(R.id.p3TotalScore)
-        totalScore3Text.text = totalScore3.toString()
 
         val firstGrouping1 = findViewById<Chip>(R.id.firstGrouping1)
         val firstGrouping2 = findViewById<Chip>(R.id.firstGrouping2)
@@ -194,12 +181,36 @@ class MainActivity : AppCompatActivity() {
         thirdGrouping2.setAlpha(1f)
         thirdGrouping3.setAlpha(1f)
 
+        firstGrouping1.chipStrokeWidth = 0f
+        firstGrouping2.chipStrokeWidth = 0f
+        firstGrouping3.chipStrokeWidth = 0f
+        secondGrouping1.chipStrokeWidth = 0f
+        secondGrouping2.chipStrokeWidth = 0f
+        secondGrouping3.chipStrokeWidth = 0f
+        thirdGrouping1.chipStrokeWidth = 0f
+        thirdGrouping2.chipStrokeWidth = 0f
+        thirdGrouping3.chipStrokeWidth = 0f
+
         firstGroupClaimed = false
         secondGroupClaimed = false
         thirdGroupClaimed = false
         p1Claimed = false
         p2Claimed = false
         p3Claimed = false
+    }
+
+    fun gameOver() {
+        totalScore1 += score1
+        totalScore2 += score2
+        totalScore3 += score3
+
+        val totalScore1Text = findViewById<TextView>(R.id.p1TotalScore)
+        totalScore1Text.text = totalScore1.toString()
+        val totalScore2Text = findViewById<TextView>(R.id.p2TotalScore)
+        totalScore2Text.text = totalScore2.toString()
+        val totalScore3Text = findViewById<TextView>(R.id.p3TotalScore)
+        totalScore3Text.text = totalScore3.toString()
+
 
         resetScoresAndGroupings()
     }
@@ -223,7 +234,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun incScore1(view: View?) {
-
+        if (activePlayers != 3) {
+            return
+        }
         if (score1 < 5) {
             score1 += 1
             resetConfirm(0)
@@ -233,6 +246,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun decrScore1(view: View?) {
+        if (activePlayers != 3) {
+            return
+        }
         resetConfirm(1)
         score1 -= 1
         if (score1 >= 0) {
@@ -254,7 +270,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun incScore2(view: View?) {
-
+        if (activePlayers != 3) {
+            return
+        }
         if (score2 < 5) {
             score2 += 1
             resetConfirm(0)
@@ -264,6 +282,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun decrScore2(view: View?) {
+        if (activePlayers != 3) {
+            return
+        }
         resetConfirm(2)
         score2 -= 1
         if (score2 >= 0) {
@@ -285,7 +306,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun incScore3(view: View?) {
-
+        if (activePlayers != 3) {
+            return
+        }
         if (score3 < 5) {
             score3 += 1
             resetConfirm(0)
@@ -295,6 +318,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun decrScore3(view: View?) {
+        if (activePlayers != 3) {
+            return
+        }
         resetConfirm(1)
         score3 -= 1
         if (score3 >= 0) {
@@ -315,353 +341,338 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun claimFirstGroup1(view: View?) {
+    fun toggleFirstGroup(player: Int) {
         firstGroupClaimed = !firstGroupClaimed
-        p1Claimed = !p1Claimed
         val firstGrouping1 = findViewById<Chip>(R.id.firstGrouping1)
         val firstGrouping2 = findViewById<Chip>(R.id.firstGrouping2)
         val firstGrouping3 = findViewById<Chip>(R.id.firstGrouping3)
         val secondGrouping1 = findViewById<Chip>(R.id.secondGrouping1)
+        val secondGrouping2 = findViewById<Chip>(R.id.secondGrouping2)
+        val secondGrouping3 = findViewById<Chip>(R.id.secondGrouping3)
         val thirdGrouping1 = findViewById<Chip>(R.id.thirdGrouping1)
+        val thirdGrouping2 = findViewById<Chip>(R.id.thirdGrouping2)
+        val thirdGrouping3 = findViewById<Chip>(R.id.thirdGrouping3)
         if (firstGroupClaimed) {
-            firstGrouping1.chipStrokeWidth = 4f
-            firstGrouping2.setAlpha(.3f)
-            firstGrouping2.setClickable(false)
-            firstGrouping3.setAlpha(.3f)
-            firstGrouping3.setClickable(false)
-            secondGrouping1.setAlpha(.3f)
-            secondGrouping1.setClickable(false)
-            thirdGrouping1.setAlpha(.3f)
-            thirdGrouping1.setClickable(false)
+            if (player != 1) {
+                firstGrouping1.setClickable(false)
+                firstGrouping1.setAlpha(.3f)
+            } else {
+                firstGrouping1.chipStrokeWidth = 4f
+                secondGrouping1.setAlpha(.3f)
+                secondGrouping1.setClickable(false)
+                thirdGrouping1.setAlpha(.3f)
+                thirdGrouping1.setClickable(false)
+            }
+            if (player != 2) {
+                firstGrouping2.setClickable(false)
+                firstGrouping2.setAlpha(.3f)
+            } else {
+                firstGrouping2.chipStrokeWidth = 4f
+                secondGrouping2.setAlpha(.3f)
+                secondGrouping2.setClickable(false)
+                thirdGrouping2.setAlpha(.3f)
+                thirdGrouping2.setClickable(false)
+            }
+            if (player != 3) {
+                firstGrouping3.setClickable(false)
+                firstGrouping3.setAlpha(.3f)
+            } else {
+                firstGrouping3.chipStrokeWidth = 4f
+                secondGrouping3.setAlpha(.3f)
+                secondGrouping3.setClickable(false)
+                thirdGrouping3.setAlpha(.3f)
+                thirdGrouping3.setClickable(false)
+            }
         } else {
-            firstGrouping1.chipStrokeWidth = 0f
-            if (!p2Claimed) {
+            if (player == 1) {
+                firstGrouping1.chipStrokeWidth = 0f
+                if (!secondGroupClaimed) {
+                    secondGrouping1.setAlpha(1f)
+                    secondGrouping1.setClickable(true)
+                }
+                if (!thirdGroupClaimed) {
+                    thirdGrouping1.setAlpha(1f)
+                    thirdGrouping1.setClickable(true)
+                }
+            } else if (!p1Claimed) {
+                firstGrouping1.setAlpha(1f)
+                firstGrouping1.setClickable(true)
+            }
+            if (player == 2) {
+                firstGrouping2.chipStrokeWidth = 0f
+                if (!secondGroupClaimed) {
+                    secondGrouping2.setAlpha(1f)
+                    secondGrouping2.setClickable(true)
+                }
+                if (!thirdGroupClaimed) {
+                    thirdGrouping2.setAlpha(1f)
+                    thirdGrouping2.setClickable(true)
+                }
+            } else if (!p2Claimed) {
                 firstGrouping2.setAlpha(1f)
                 firstGrouping2.setClickable(true)
             }
-            if (!p3Claimed) {
+            if (player == 3) {
+                firstGrouping3.chipStrokeWidth = 0f
+                if (!secondGroupClaimed) {
+                    secondGrouping3.setAlpha(1f)
+                    secondGrouping3.setClickable(true)
+                }
+                if (!thirdGroupClaimed) {
+                    thirdGrouping3.setAlpha(1f)
+                    thirdGrouping3.setClickable(true)
+                }
+            } else if (!p3Claimed) {
                 firstGrouping3.setAlpha(1f)
                 firstGrouping3.setClickable(true)
             }
-            if (!secondGroupClaimed) {
+        }
+    }
+
+    fun toggleSecondGroup(player: Int) {
+        secondGroupClaimed = !secondGroupClaimed
+        val firstGrouping1 = findViewById<Chip>(R.id.firstGrouping1)
+        val firstGrouping2 = findViewById<Chip>(R.id.firstGrouping2)
+        val firstGrouping3 = findViewById<Chip>(R.id.firstGrouping3)
+        val secondGrouping1 = findViewById<Chip>(R.id.secondGrouping1)
+        val secondGrouping2 = findViewById<Chip>(R.id.secondGrouping2)
+        val secondGrouping3 = findViewById<Chip>(R.id.secondGrouping3)
+        val thirdGrouping1 = findViewById<Chip>(R.id.thirdGrouping1)
+        val thirdGrouping2 = findViewById<Chip>(R.id.thirdGrouping2)
+        val thirdGrouping3 = findViewById<Chip>(R.id.thirdGrouping3)
+        if (secondGroupClaimed) {
+            if (player != 1) {
+                secondGrouping1.setClickable(false)
+                secondGrouping1.setAlpha(.3f)
+            } else {
+                secondGrouping1.chipStrokeWidth = 4f
+                firstGrouping1.setAlpha(.3f)
+                firstGrouping1.setClickable(false)
+                thirdGrouping1.setAlpha(.3f)
+                thirdGrouping1.setClickable(false)
+            }
+            if (player != 2) {
+                secondGrouping2.setClickable(false)
+                secondGrouping2.setAlpha(.3f)
+            } else {
+                secondGrouping2.chipStrokeWidth = 4f
+                firstGrouping2.setAlpha(.3f)
+                firstGrouping2.setClickable(false)
+                thirdGrouping2.setAlpha(.3f)
+                thirdGrouping2.setClickable(false)
+            }
+            if (player != 3) {
+                secondGrouping3.setClickable(false)
+                secondGrouping3.setAlpha(.3f)
+            } else {
+                secondGrouping3.chipStrokeWidth = 4f
+                firstGrouping3.setAlpha(.3f)
+                firstGrouping3.setClickable(false)
+                thirdGrouping3.setAlpha(.3f)
+                thirdGrouping3.setClickable(false)
+            }
+        } else {
+            if (player == 1) {
+                secondGrouping1.chipStrokeWidth = 0f
+                if (!firstGroupClaimed) {
+                    firstGrouping1.setAlpha(1f)
+                    firstGrouping1.setClickable(true)
+                }
+                if (!thirdGroupClaimed) {
+                    thirdGrouping1.setAlpha(1f)
+                    thirdGrouping1.setClickable(true)
+                }
+            } else if (!p1Claimed) {
                 secondGrouping1.setAlpha(1f)
                 secondGrouping1.setClickable(true)
             }
-            if (!thirdGroupClaimed) {
+            if (player == 2) {
+                secondGrouping2.chipStrokeWidth = 0f
+                if (!firstGroupClaimed) {
+                    firstGrouping2.setAlpha(1f)
+                    firstGrouping2.setClickable(true)
+                }
+                if (!thirdGroupClaimed) {
+                    thirdGrouping2.setAlpha(1f)
+                    thirdGrouping2.setClickable(true)
+                }
+            } else if (!p2Claimed) {
+                secondGrouping2.setAlpha(1f)
+                secondGrouping2.setClickable(true)
+            }
+            if (player == 3) {
+                secondGrouping3.chipStrokeWidth = 0f
+                if (!firstGroupClaimed) {
+                    firstGrouping3.setAlpha(1f)
+                    firstGrouping3.setClickable(true)
+                }
+                if (!thirdGroupClaimed) {
+                    thirdGrouping3.setAlpha(1f)
+                    thirdGrouping3.setClickable(true)
+                }
+            } else if (!p3Claimed) {
+                secondGrouping3.setAlpha(1f)
+                secondGrouping3.setClickable(true)
+            }
+        }
+    }
+
+    fun toggleThirdGroup(player: Int) {
+        thirdGroupClaimed = !thirdGroupClaimed
+        val firstGrouping1 = findViewById<Chip>(R.id.firstGrouping1)
+        val firstGrouping2 = findViewById<Chip>(R.id.firstGrouping2)
+        val firstGrouping3 = findViewById<Chip>(R.id.firstGrouping3)
+        val secondGrouping1 = findViewById<Chip>(R.id.secondGrouping1)
+        val secondGrouping2 = findViewById<Chip>(R.id.secondGrouping2)
+        val secondGrouping3 = findViewById<Chip>(R.id.secondGrouping3)
+        val thirdGrouping1 = findViewById<Chip>(R.id.thirdGrouping1)
+        val thirdGrouping2 = findViewById<Chip>(R.id.thirdGrouping2)
+        val thirdGrouping3 = findViewById<Chip>(R.id.thirdGrouping3)
+        if (thirdGroupClaimed) {
+            if (player != 1) {
+                thirdGrouping1.setClickable(false)
+                thirdGrouping1.setAlpha(.3f)
+            } else {
+                thirdGrouping1.chipStrokeWidth = 4f
+                secondGrouping1.setAlpha(.3f)
+                secondGrouping1.setClickable(false)
+                firstGrouping1.setAlpha(.3f)
+                firstGrouping1.setClickable(false)
+            }
+            if (player != 2) {
+                thirdGrouping2.setClickable(false)
+                thirdGrouping2.setAlpha(.3f)
+            } else {
+                thirdGrouping2.chipStrokeWidth = 4f
+                secondGrouping2.setAlpha(.3f)
+                secondGrouping2.setClickable(false)
+                firstGrouping2.setAlpha(.3f)
+                firstGrouping2.setClickable(false)
+            }
+            if (player != 3) {
+                thirdGrouping3.setClickable(false)
+                thirdGrouping3.setAlpha(.3f)
+            } else {
+                thirdGrouping3.chipStrokeWidth = 4f
+                secondGrouping3.setAlpha(.3f)
+                secondGrouping3.setClickable(false)
+                firstGrouping3.setAlpha(.3f)
+                firstGrouping3.setClickable(false)
+            }
+        } else {
+            if (player == 1) {
+                thirdGrouping1.chipStrokeWidth = 0f
+                if (!secondGroupClaimed) {
+                    secondGrouping1.setAlpha(1f)
+                    secondGrouping1.setClickable(true)
+                }
+                if (!firstGroupClaimed) {
+                    firstGrouping1.setAlpha(1f)
+                    firstGrouping1.setClickable(true)
+                }
+            } else if (!p1Claimed) {
                 thirdGrouping1.setAlpha(1f)
                 thirdGrouping1.setClickable(true)
             }
+            if (player == 2) {
+                thirdGrouping2.chipStrokeWidth = 0f
+                if (!secondGroupClaimed) {
+                    secondGrouping2.setAlpha(1f)
+                    secondGrouping2.setClickable(true)
+                }
+                if (!firstGroupClaimed) {
+                    firstGrouping2.setAlpha(1f)
+                    firstGrouping2.setClickable(true)
+                }
+            } else if (!p2Claimed) {
+                thirdGrouping2.setAlpha(1f)
+                thirdGrouping2.setClickable(true)
+            }
+            if (player == 3) {
+                thirdGrouping3.chipStrokeWidth = 0f
+                if (!secondGroupClaimed) {
+                    secondGrouping3.setAlpha(1f)
+                    secondGrouping3.setClickable(true)
+                }
+                if (!firstGroupClaimed) {
+                    firstGrouping3.setAlpha(1f)
+                    firstGrouping3.setClickable(true)
+                }
+            } else if (!p3Claimed) {
+                thirdGrouping3.setAlpha(1f)
+                thirdGrouping3.setClickable(true)
+            }
         }
+    }
+
+    fun claimFirstGroup1(view: View?) {
+        if (activePlayers != 3) {
+            return
+        }
+        p1Claimed = !p1Claimed
+        toggleFirstGroup(1)
     }
 
     fun claimFirstGroup2(view: View?) {
-        firstGroupClaimed = !firstGroupClaimed
-        p2Claimed = !p2Claimed
-        val firstGrouping1 = findViewById<Chip>(R.id.firstGrouping1)
-        val firstGrouping2 = findViewById<Chip>(R.id.firstGrouping2)
-        val firstGrouping3 = findViewById<Chip>(R.id.firstGrouping3)
-        val secondGrouping2 = findViewById<Chip>(R.id.secondGrouping2)
-        val thirdGrouping2 = findViewById<Chip>(R.id.thirdGrouping2)
-        if (firstGroupClaimed) {
-            firstGrouping2.chipStrokeWidth = 4f
-            firstGrouping1.setAlpha(.3f)
-            firstGrouping1.setClickable(false)
-            firstGrouping3.setAlpha(.3f)
-            firstGrouping3.setClickable(false)
-            secondGrouping2.setAlpha(.3f)
-            secondGrouping2.setClickable(false)
-            thirdGrouping2.setAlpha(.3f)
-            thirdGrouping2.setClickable(false)
-        } else {
-            firstGrouping2.chipStrokeWidth = 0f
-            if (!p1Claimed) {
-                firstGrouping1.setAlpha(1f)
-                firstGrouping1.setClickable(true)
-            }
-            if (!p3Claimed) {
-                firstGrouping3.setAlpha(1f)
-                firstGrouping3.setClickable(true)
-            }
-            if (!secondGroupClaimed) {
-                secondGrouping2.setAlpha(1f)
-                secondGrouping2.setClickable(true)
-            }
-            if (!thirdGroupClaimed) {
-                thirdGrouping2.setAlpha(1f)
-                thirdGrouping2.setClickable(true)
-            }
+        if (activePlayers != 3) {
+            return
         }
+        p2Claimed = !p2Claimed
+        toggleFirstGroup(2)
     }
 
     fun claimFirstGroup3(view: View?) {
-        firstGroupClaimed = !firstGroupClaimed
-        p3Claimed = !p3Claimed
-        val firstGrouping3 = findViewById<Chip>(R.id.firstGrouping3)
-        val firstGrouping2 = findViewById<Chip>(R.id.firstGrouping2)
-        val firstGrouping1 = findViewById<Chip>(R.id.firstGrouping1)
-        val secondGrouping3 = findViewById<Chip>(R.id.secondGrouping3)
-        val thirdGrouping3 = findViewById<Chip>(R.id.thirdGrouping3)
-        if (firstGroupClaimed) {
-            firstGrouping3.chipStrokeWidth = 4f
-            firstGrouping2.setAlpha(.3f)
-            firstGrouping2.setClickable(false)
-            firstGrouping1.setAlpha(.3f)
-            firstGrouping1.setClickable(false)
-            secondGrouping3.setAlpha(.3f)
-            secondGrouping3.setClickable(false)
-            thirdGrouping3.setAlpha(.3f)
-            thirdGrouping3.setClickable(false)
-        } else {
-            firstGrouping3.chipStrokeWidth = 0f
-            if (!p2Claimed) {
-                firstGrouping2.setAlpha(1f)
-                firstGrouping2.setClickable(true)
-            }
-            if (!p1Claimed) {
-                firstGrouping1.setAlpha(1f)
-                firstGrouping1.setClickable(true)
-            }
-            if (!secondGroupClaimed) {
-                secondGrouping3.setAlpha(1f)
-                secondGrouping3.setClickable(true)
-            }
-            if (!thirdGroupClaimed) {
-                thirdGrouping3.setAlpha(1f)
-                thirdGrouping3.setClickable(true)
-            }
+        if (activePlayers != 3) {
+            return
         }
+        p3Claimed = !p3Claimed
+        toggleFirstGroup(3)
     }
 
     fun claimSecondGroup1(view: View?) {
-        secondGroupClaimed = !secondGroupClaimed
-        p1Claimed = !p1Claimed
-        val secondGrouping1 = findViewById<Chip>(R.id.secondGrouping1)
-        val secondGrouping2 = findViewById<Chip>(R.id.secondGrouping2)
-        val secondGrouping3 = findViewById<Chip>(R.id.secondGrouping3)
-        val firstGrouping1 = findViewById<Chip>(R.id.firstGrouping1)
-        val thirdGrouping1 = findViewById<Chip>(R.id.thirdGrouping1)
-        if (secondGroupClaimed) {
-            secondGrouping1.chipStrokeWidth = 4f
-            secondGrouping2.setAlpha(.3f)
-            secondGrouping2.setClickable(false)
-            secondGrouping3.setAlpha(.3f)
-            secondGrouping3.setClickable(false)
-            firstGrouping1.setAlpha(.3f)
-            firstGrouping1.setClickable(false)
-            thirdGrouping1.setAlpha(.3f)
-            thirdGrouping1.setClickable(false)
-        } else {
-            secondGrouping1.chipStrokeWidth = 0f
-            if (!p2Claimed) {
-                secondGrouping2.setAlpha(1f)
-                secondGrouping2.setClickable(true)
-            }
-            if (!p3Claimed) {
-                secondGrouping3.setAlpha(1f)
-                secondGrouping3.setClickable(true)
-            }
-            if (!firstGroupClaimed) {
-                firstGrouping1.setAlpha(1f)
-                firstGrouping1.setClickable(true)
-            }
-            if (!thirdGroupClaimed) {
-                thirdGrouping1.setAlpha(1f)
-                thirdGrouping1.setClickable(true)
-            }
+        if (activePlayers != 3) {
+            return
         }
+        p1Claimed = !p1Claimed
+        toggleSecondGroup(1)
     }
 
     fun claimSecondGroup2(view: View?) {
-        secondGroupClaimed = !secondGroupClaimed
-        p2Claimed = !p2Claimed
-        val secondGrouping1 = findViewById<Chip>(R.id.secondGrouping1)
-        val secondGrouping2 = findViewById<Chip>(R.id.secondGrouping2)
-        val secondGrouping3 = findViewById<Chip>(R.id.secondGrouping3)
-        val firstGrouping2 = findViewById<Chip>(R.id.firstGrouping2)
-        val thirdGrouping2 = findViewById<Chip>(R.id.thirdGrouping2)
-        if (secondGroupClaimed) {
-            secondGrouping2.chipStrokeWidth = 4f
-            secondGrouping1.setAlpha(.3f)
-            secondGrouping1.setClickable(false)
-            secondGrouping3.setAlpha(.3f)
-            secondGrouping3.setClickable(false)
-            firstGrouping2.setAlpha(.3f)
-            firstGrouping2.setClickable(false)
-            thirdGrouping2.setAlpha(.3f)
-            thirdGrouping2.setClickable(false)
-        } else {
-            secondGrouping2.chipStrokeWidth = 0f
-            if (!p1Claimed) {
-                secondGrouping1.setAlpha(1f)
-                secondGrouping1.setClickable(true)
-            }
-            if (!p3Claimed) {
-                secondGrouping3.setAlpha(1f)
-                secondGrouping3.setClickable(true)
-            }
-            if (!firstGroupClaimed) {
-                firstGrouping2.setAlpha(1f)
-                firstGrouping2.setClickable(true)
-            }
-            if (!thirdGroupClaimed) {
-                thirdGrouping2.setAlpha(1f)
-                thirdGrouping2.setClickable(true)
-            }
+        if (activePlayers != 3) {
+            return
         }
+        p2Claimed = !p2Claimed
+        toggleSecondGroup(2)
     }
 
     fun claimSecondGroup3(view: View?) {
-        secondGroupClaimed = !secondGroupClaimed
-        p3Claimed = !p3Claimed
-        val secondGrouping3 = findViewById<Chip>(R.id.secondGrouping3)
-        val secondGrouping2 = findViewById<Chip>(R.id.secondGrouping2)
-        val secondGrouping1 = findViewById<Chip>(R.id.secondGrouping1)
-        val firstGrouping3 = findViewById<Chip>(R.id.firstGrouping3)
-        val thirdGrouping3 = findViewById<Chip>(R.id.thirdGrouping3)
-        if (secondGroupClaimed) {
-            secondGrouping3.chipStrokeWidth = 4f
-            secondGrouping2.setAlpha(.3f)
-            secondGrouping2.setClickable(false)
-            secondGrouping1.setAlpha(.3f)
-            secondGrouping1.setClickable(false)
-            firstGrouping3.setAlpha(.3f)
-            firstGrouping3.setClickable(false)
-            thirdGrouping3.setAlpha(.3f)
-            thirdGrouping3.setClickable(false)
-        } else {
-            secondGrouping3.chipStrokeWidth = 0f
-            if (!p2Claimed) {
-                secondGrouping2.setAlpha(1f)
-                secondGrouping2.setClickable(true)
-            }
-            if (!p1Claimed) {
-                secondGrouping1.setAlpha(1f)
-                secondGrouping1.setClickable(true)
-            }
-            if (!firstGroupClaimed) {
-                firstGrouping3.setAlpha(1f)
-                firstGrouping3.setClickable(true)
-            }
-            if (!thirdGroupClaimed) {
-                thirdGrouping3.setAlpha(1f)
-                thirdGrouping3.setClickable(true)
-            }
+        if (activePlayers != 3) {
+            return
         }
+        p3Claimed = !p3Claimed
+        toggleSecondGroup(3)
     }
     fun claimThirdGroup1(view: View?) {
-        thirdGroupClaimed = !thirdGroupClaimed
-        p1Claimed = !p1Claimed
-        val thirdGrouping1 = findViewById<Chip>(R.id.thirdGrouping1)
-        val thirdGrouping2 = findViewById<Chip>(R.id.thirdGrouping2)
-        val thirdGrouping3 = findViewById<Chip>(R.id.thirdGrouping3)
-        val firstGrouping1 = findViewById<Chip>(R.id.firstGrouping1)
-        val secondGrouping1 = findViewById<Chip>(R.id.secondGrouping1)
-        if (thirdGroupClaimed) {
-            thirdGrouping1.chipStrokeWidth = 4f
-            thirdGrouping2.setAlpha(.3f)
-            thirdGrouping2.setClickable(false)
-            thirdGrouping3.setAlpha(.3f)
-            thirdGrouping3.setClickable(false)
-            firstGrouping1.setAlpha(.3f)
-            firstGrouping1.setClickable(false)
-            secondGrouping1.setAlpha(.3f)
-            secondGrouping1.setClickable(false)
-        } else {
-            thirdGrouping1.chipStrokeWidth = 0f
-            if (!p2Claimed) {
-                thirdGrouping2.setAlpha(1f)
-                thirdGrouping2.setClickable(true)
-            }
-            if (!p3Claimed) {
-                thirdGrouping3.setAlpha(1f)
-                thirdGrouping3.setClickable(true)
-            }
-            if (firstGroupClaimed) {
-                firstGrouping1.setAlpha(1f)
-                firstGrouping1.setClickable(true)
-            }
-            if (secondGroupClaimed) {
-                secondGrouping1.setAlpha(1f)
-                secondGrouping1.setClickable(true)
-            }
+        if (activePlayers != 3) {
+            return
         }
+        p1Claimed = !p1Claimed
+        toggleThirdGroup(1)
     }
 
     fun claimThirdGroup2(view: View?) {
-        secondGroupClaimed = !secondGroupClaimed
-        p2Claimed = !p2Claimed
-        val thirdGrouping1 = findViewById<Chip>(R.id.thirdGrouping1)
-        val thirdGrouping2 = findViewById<Chip>(R.id.thirdGrouping2)
-        val thirdGrouping3 = findViewById<Chip>(R.id.thirdGrouping3)
-        val firstGrouping2 = findViewById<Chip>(R.id.firstGrouping2)
-        val secondGrouping2 = findViewById<Chip>(R.id.secondGrouping2)
-        if (secondGroupClaimed) {
-            thirdGrouping2.chipStrokeWidth = 4f
-            thirdGrouping1.setAlpha(.3f)
-            thirdGrouping1.setClickable(false)
-            thirdGrouping3.setAlpha(.3f)
-            thirdGrouping3.setClickable(false)
-            firstGrouping2.setAlpha(.3f)
-            firstGrouping2.setClickable(false)
-            secondGrouping2.setAlpha(.3f)
-            secondGrouping2.setClickable(false)
-        } else {
-            thirdGrouping2.chipStrokeWidth = 0f
-            if (!p1Claimed) {
-                thirdGrouping1.setAlpha(1f)
-                thirdGrouping1.setClickable(true)
-            }
-            if (!p3Claimed) {
-                thirdGrouping3.setAlpha(1f)
-                thirdGrouping3.setClickable(true)
-            }
-            if (!firstGroupClaimed) {
-                firstGrouping2.setAlpha(1f)
-                firstGrouping2.setClickable(true)
-            }
-            if (!secondGroupClaimed) {
-                secondGrouping2.setAlpha(1f)
-                secondGrouping2.setClickable(true)
-            }
+        if (activePlayers != 3) {
+            return
         }
+        p2Claimed = !p2Claimed
+        toggleThirdGroup(2)
     }
 
     fun claimThirdGroup3(view: View?) {
-        thirdGroupClaimed = !thirdGroupClaimed
-        p3Claimed = !p3Claimed
-        val thirdGrouping3 = findViewById<Chip>(R.id.thirdGrouping3)
-        val thirdGrouping2 = findViewById<Chip>(R.id.thirdGrouping2)
-        val thirdGrouping1 = findViewById<Chip>(R.id.thirdGrouping1)
-        val firstGrouping3 = findViewById<Chip>(R.id.firstGrouping3)
-        val secondGrouping3 = findViewById<Chip>(R.id.secondGrouping3)
-        if (thirdGroupClaimed) {
-            thirdGrouping3.chipStrokeWidth = 4f
-            thirdGrouping2.setAlpha(.3f)
-            thirdGrouping2.setClickable(false)
-            thirdGrouping1.setAlpha(.3f)
-            thirdGrouping1.setClickable(false)
-            firstGrouping3.setAlpha(.3f)
-            firstGrouping3.setClickable(false)
-            secondGrouping3.setAlpha(.3f)
-            secondGrouping3.setClickable(false)
-        } else {
-            thirdGrouping3.chipStrokeWidth = 0f
-            if (!p2Claimed) {
-                thirdGrouping2.setAlpha(1f)
-                thirdGrouping2.setClickable(true)
-            }
-            if (!p1Claimed) {
-                thirdGrouping1.setAlpha(1f)
-                thirdGrouping1.setClickable(true)
-            }
-            if (!firstGroupClaimed) {
-                firstGrouping3.setAlpha(1f)
-                firstGrouping3.setClickable(true)
-            }
-            if (!secondGroupClaimed) {
-                secondGrouping3.setAlpha(1f)
-                secondGrouping3.setClickable(true)
-            }
+        if (activePlayers != 3) {
+            return
         }
+        p3Claimed = !p3Claimed
+        toggleThirdGroup(3)
     }
 }
