@@ -1,190 +1,179 @@
 package com.example.myapplication
-
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
-import androidx.core.view.WindowInsetsCompat
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.chip.Chip
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
-    private var score1 = 5
-    private var score2 = 5
-    private var score3 = 5
-
-    private var totalScore1 = 0
-    private var totalScore2 = 0
-    private var totalScore3 = 0
-
-    private var totalWins1 = 0
-    private var totalWins2 = 0
-    private var totalWins3 = 0
-
-    private var p1Name = "Player 1"
-    private var p2Name = "Player 2"
-    private var p3Name = "Player 3"
+class LobbyFragment : Fragment() {
     private var activePlayers = 0
 
-    private var firstGroupClaimed = false
-    private var secondGroupClaimed = false
-    private var thirdGroupClaimed = false
-    private var p1Claimed = false
-    private var p2Claimed = false
-    private var p3Claimed = false
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val root = inflater.inflate(R.layout.activity_lobby, container, false)
+        val player1Lobby = root.findViewById<View>(R.id.player1LobbyFragment)
+        val player2Lobby = root.findViewById<View>(R.id.player2LobbyFragment)
+        val player3Lobby = root.findViewById<View>(R.id.player3LobbyFragment)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        supportActionBar?.hide()
+        setupPlayerCard(
+            addView = root.findViewById(R.id.addPlayer1Fragment),
+            lobbyView = root.findViewById(R.id.player1LobbyFragment),
+            otherLobbyViews = listOf(player2Lobby, player3Lobby)
+        )
+        setupPlayerCard(
+            addView = root.findViewById(R.id.addPlayer2Fragment),
+            lobbyView = root.findViewById(R.id.player2LobbyFragment),
+            otherLobbyViews = listOf(player1Lobby, player3Lobby)
+        )
+        setupPlayerCard(
+            addView = root.findViewById(R.id.addPlayer3Fragment),
+            lobbyView = root.findViewById(R.id.player3LobbyFragment),
+            otherLobbyViews = listOf(player1Lobby, player2Lobby)
+        )
 
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+//        resetPlayer(
+//            addView = root.findViewById(R.id.addPlayer1Fragment),
+//            lobbyView = root.findViewById(R.id.player1LobbyFragment)
+//        )
+//        resetPlayer(
+//            addView = root.findViewById(R.id.addPlayer2Fragment),
+//            lobbyView = root.findViewById(R.id.player2LobbyFragment)
+//        )
+//        resetPlayer(
+//            addView = root.findViewById(R.id.addPlayer3Fragment),
+//            lobbyView = root.findViewById(R.id.player3LobbyFragment)
+//        )
 
-        val lobbyFragment = LobbyFragment()
 
-        setCurrentFragment(lobbyFragment)
+        return root
+    }
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_lobby -> setCurrentFragment(lobbyFragment)
+
+    private fun setupPlayerCard(
+        addView: View,
+        lobbyView: View,
+        otherLobbyViews: List<View>
+    ) {
+        val nameInput = addView.findViewById<EditText>(R.id.nameInput)
+        val addButton = addView.findViewById<Button>(R.id.addPlayerBtn)
+        val playerName = lobbyView.findViewById<TextView>(R.id.playerName)
+        val resetButton = lobbyView.findViewById<FloatingActionButton>(R.id.resetPlayerBtn)
+        val firstGrouping = lobbyView.findViewById<Chip>(R.id.firstGrouping)
+        val secondGrouping = lobbyView.findViewById<Chip>(R.id.secondGrouping)
+        val thirdGrouping = lobbyView.findViewById<Chip>(R.id.thirdGrouping)
+
+        var score = 5
+        var totalScore = 0
+        var totalWins = 0
+        var firstGroupClaimed = false
+        var secondGroupClaimed = false
+        var thirdGroupClaimed = false
+        var claimed = false
+
+        addButton.setOnClickListener {
+            val text = nameInput.text.toString().trim()
+            if (text.isBlank()) {
+                Toast.makeText(requireContext(), "Name cannot be blank", Toast.LENGTH_SHORT).show()
+            } else {
+                println(text)
+                playerName.text = text
+                lobbyView.visibility = View.VISIBLE
+                addView.visibility = View.GONE
+                activePlayers++
             }
-            true
+        }
+
+        resetButton.setOnClickListener {
+            val playerName = lobbyView.findViewById<TextView>(R.id.playerName)
+            val nameInput = addView.findViewById<EditText>(R.id.nameInput)
+            nameInput.setText(playerName.text)
+            lobbyView.visibility = View.GONE
+            addView.visibility = View.VISIBLE
+//            resetScoresAndGroupings()
+            val totalScoreText = lobbyView.findViewById<TextView>(R.id.totalScoreNum)
+            totalScoreText.text = totalScore.toString()
+            val winCount = lobbyView.findViewById<TextView>(R.id.numWinsNum)
+            winCount.text = totalWins.toString()
+            activePlayers--
+        }
+
+        firstGrouping.setOnClickListener {
+            firstGrouping.chipStrokeWidth = 4f
+            secondGrouping.setAlpha(.3f)
+            secondGrouping.setClickable(false)
+            thirdGrouping.setAlpha(.3f)
+            thirdGrouping.setClickable(false)
+            restrictFirstGrouping(otherLobbyViews)
+            firstGroupClaimed = firstGroupClaimed
+        }
+
+        secondGrouping.setOnClickListener {
+            secondGrouping.chipStrokeWidth = 4f
+            firstGrouping.setAlpha(.3f)
+            firstGrouping.setClickable(false)
+            thirdGrouping.setAlpha(.3f)
+            thirdGrouping.setClickable(false)
+            restrictSecondGrouping(otherLobbyViews)
+            secondGroupClaimed = secondGroupClaimed
+        }
+
+        thirdGrouping.setOnClickListener {
+            thirdGrouping.chipStrokeWidth = 4f
+            firstGrouping.setAlpha(.3f)
+            firstGrouping.setClickable(false)
+            secondGrouping.setAlpha(.3f)
+            secondGrouping.setClickable(false)
+            restrictThirdGrouping(otherLobbyViews)
+            thirdGroupClaimed = !thirdGroupClaimed
+        }
+    }
+
+    private fun restrictFirstGrouping(otherLobbyViews: List<View>) {
+        otherLobbyViews.forEach { lobbyView ->
+            val firstGrouping = lobbyView.findViewById<Chip>(R.id.firstGrouping)
+            firstGrouping.setClickable(false)
+            firstGrouping.setAlpha(.3f)
+        }
+
+    }
+    private fun restrictSecondGrouping(otherLobbyViews: List<View>) {
+        otherLobbyViews.forEach { lobbyView ->
+            val secondGrouping = lobbyView.findViewById<Chip>(R.id.secondGrouping)
+            secondGrouping.setClickable(false)
+            secondGrouping.setAlpha(.3f)
+        }
+
+    }
+    private fun restrictThirdGrouping(otherLobbyViews: List<View>) {
+        otherLobbyViews.forEach { lobbyView ->
+            val thirdGrouping = lobbyView.findViewById<Chip>(R.id.thirdGrouping)
+            thirdGrouping.setClickable(false)
+            thirdGrouping.setAlpha(.3f)
         }
 
     }
 
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentView, fragment)
-            commit()
-        }
-}
-//    fun debug() {
-//        println(p1Claimed)
+
+    fun debug() {
+        println("debug")
+    }
+
+//    fun resetPlayer(addView: View, lobbyView: View) {
+//        pass
 //    }
-//    fun addPlayer1(view: View?) {
-//        val editText = findViewById<EditText>(R.id.nameInput1)
-//        val text = editText.text.toString().trim()
-//        if (text.isNullOrBlank()) {
-//            Toast.makeText(this, "Name cannot be blank", Toast.LENGTH_SHORT).show()
-//        } else {
-//            println(text)
-//            p1Name = text
-//            val infoCard = findViewById<CardView>(R.id.playerInfo1)
-//            val addPlayerCard = findViewById<CardView>(R.id.addPlayer1Card)
-//            val name: TextView = findViewById(R.id.playerName1)
-//            name.text = text
-//            infoCard.visibility = View.VISIBLE
-//            addPlayerCard.visibility = View.GONE
-//            activePlayers++
-//            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//            imm.hideSoftInputFromWindow(editText.windowToken, 0)
-//        }
-//
-//    }
-//
-//    fun addPlayer2(view: View?) {
-//        val editText = findViewById<EditText>(R.id.nameInput2)
-//        val text = editText.text.toString().trim()
-//        if (text.isNullOrBlank()) {
-//            Toast.makeText(this, "Name cannot be blank", Toast.LENGTH_SHORT).show()
-//        } else {
-//            println(text)
-//            p2Name = text
-//            val infoCard = findViewById<CardView>(R.id.playerInfo2)
-//            val addPlayerCard = findViewById<CardView>(R.id.addPlayer2Card)
-//            val name: TextView = findViewById(R.id.playerName2)
-//            name.text = text
-//            infoCard.visibility = View.VISIBLE
-//            addPlayerCard.visibility = View.GONE
-//            activePlayers++
-//            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//            imm.hideSoftInputFromWindow(editText.windowToken, 0)
-//        }
-//    }
-//
-//    fun addPlayer3(view: View?) {
-//        val editText = findViewById<TextView>(R.id.nameInput3)
-//        val text = editText.text.toString().trim()
-//        if (text.isNullOrBlank()) {
-//            Toast.makeText(this, "Name cannot be blank", Toast.LENGTH_SHORT).show()
-//        } else {
-//            println(text)
-//            p3Name = text
-//            val infoCard = findViewById<CardView>(R.id.playerInfo3)
-//            val addPlayerCard = findViewById<CardView>(R.id.addPlayer3Card)
-//            val name: TextView = findViewById(R.id.playerName3)
-//            name.text = text
-//            infoCard.visibility = View.VISIBLE
-//            addPlayerCard.visibility = View.GONE
-//            activePlayers++
-//            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//            imm.hideSoftInputFromWindow(editText.windowToken, 0)
-//        }
-//    }
-//
-//    fun resetPlayer1(view: View?) {
-//        val infoCard = findViewById<CardView>(R.id.playerInfo1)
-//        val addPlayerCard = findViewById<CardView>(R.id.addPlayer1Card)
-//        val nameInput = findViewById<EditText>(R.id.nameInput1)
-//        nameInput.setText(p1Name)
-//        infoCard.visibility = View.GONE
-//        addPlayerCard.visibility = View.VISIBLE
-//        resetScoresAndGroupings()
-//        totalScore1 = 0
-//        val totalScore1Text = findViewById<TextView>(R.id.p1TotalScore)
-//        totalScore1Text.text = totalScore1.toString()
-//        val winCount = findViewById<TextView>(R.id.p1Wins)
-//        winCount.text = totalWins1.toString()
-//        score1 = 0
-//        activePlayers--
-//    }
-//
-//    fun resetPlayer2(view: View?) {
-//        val infoCard = findViewById<CardView>(R.id.playerInfo2)
-//        val addPlayerCard = findViewById<CardView>(R.id.addPlayer2Card)
-//        val nameInput = findViewById<EditText>(R.id.nameInput2)
-//        nameInput.setText(p2Name)
-//        infoCard.visibility = View.GONE
-//        addPlayerCard.visibility = View.VISIBLE
-//        resetScoresAndGroupings()
-//        totalScore2 = 0
-//        val totalScore2Text = findViewById<TextView>(R.id.p2TotalScore)
-//        totalScore2Text.text = totalScore2.toString()
-//        val winCount = findViewById<TextView>(R.id.p2Wins)
-//        winCount.text = totalWins2.toString()
-//        score2 = 0
-//        activePlayers--
-//    }
-//
-//    fun resetPlayer3(view: View?) {
-//        val infoCard = findViewById<CardView>(R.id.playerInfo3)
-//        val addPlayerCard = findViewById<CardView>(R.id.addPlayer3Card)
-//        val nameInput = findViewById<EditText>(R.id.nameInput3)
-//        nameInput.setText(p3Name)
-//        infoCard.visibility = View.GONE
-//        addPlayerCard.visibility = View.VISIBLE
-//        resetScoresAndGroupings()
-//        totalScore3 = 0
-//        val totalScore3Text = findViewById<TextView>(R.id.p3TotalScore)
-//        totalScore3Text.text = totalScore3.toString()
-//        val winCount = findViewById<TextView>(R.id.p3Wins)
-//        winCount.text = totalWins3.toString()
-//        score3 = 0
-//        activePlayers--
-//    }
-//
+
+
+
 //    fun resetScoresAndGroupings() {
 //        score1 = 5
 //        score2 = 5
@@ -721,4 +710,4 @@ class MainActivity : AppCompatActivity() {
 //        p3Claimed = !p3Claimed
 //        toggleThirdGroup(3)
 //    }
-//}
+}
