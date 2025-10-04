@@ -1,6 +1,20 @@
-# Description
-Cutthroat Game Tracker is an app which allows the 3 players to easily track scores, which group people are shooting, and more. 
-It's meant to help keep track of game states for you so that everyone can focus on their shots!
+# Cutthroat Game Tracker
+Cutthroat Game Tracker is an app which allows you to track game states while playing cutthroat so that everyone can focus more on their shots! You can use it to keep track of scores, the quantity of balls on the table for each person, shooting group assignments, and more.
+
+### Before adding players
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/adbcd8cb-1078-4e4a-be5c-b1154e550376"/>
+</p>
+
+### Beginning a game
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/872552f0-dabf-4349-9522-b0ecbf8d3639"/>
+</p>
+
+### Third game underway
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1fdb3256-e6a8-47da-ac8a-62f366a04806"/>
+</p>
 
 # Installation
 Installation is simple! Just
