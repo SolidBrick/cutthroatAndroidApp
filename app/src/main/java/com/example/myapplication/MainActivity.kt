@@ -20,30 +20,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    private var score1 = 5
-    private var score2 = 5
-    private var score3 = 5
-
-    private var totalScore1 = 0
-    private var totalScore2 = 0
-    private var totalScore3 = 0
-
-    private var totalWins1 = 0
-    private var totalWins2 = 0
-    private var totalWins3 = 0
-
-    private var p1Name = "Player 1"
-    private var p2Name = "Player 2"
-    private var p3Name = "Player 3"
-    private var activePlayers = 0
-
-    private var firstGroupClaimed = false
-    private var secondGroupClaimed = false
-    private var thirdGroupClaimed = false
-    private var p1Claimed = false
-    private var p2Claimed = false
-    private var p3Claimed = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

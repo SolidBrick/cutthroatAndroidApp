@@ -11,7 +11,7 @@
         android:icon="@drawable/ic_leaderboard" />
     <item
         android:id="@+id/nav_match_history"
-        android:title="Match_History"
+        android:title="Match History"
         android:icon="@drawable/ic_leaderboard" />
 
 </menu>
