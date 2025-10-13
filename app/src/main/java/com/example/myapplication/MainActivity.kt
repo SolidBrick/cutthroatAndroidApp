@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.chip.Chip
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
@@ -26,8 +28,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-
         val lobbyFragment = LobbyFragment()
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        // Configure the behavior of the hidden system bars.
+        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
 
         setCurrentFragment(lobbyFragment)
 

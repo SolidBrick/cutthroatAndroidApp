@@ -59,7 +59,7 @@
 
         <TextView
             android:id="@+id/addScore"
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
@@ -74,7 +74,7 @@
 
         <TextView
             android:id="@+id/subtractScore"
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
             android:clickable="true"
@@ -91,7 +91,7 @@
         <EditText
             android:id="@+id/curScore"
             android:layout_width="52dp"
-            android:layout_height="80dp"
+            android:layout_height="48dp"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:background="@android:color/transparent"
@@ -169,15 +169,16 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/ballGroupingContainer"
-            android:layout_width="75dp"
+            android:layout_width="76dp"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="4dp"
             android:orientation="vertical"
             android:padding="0dp"
-            app:chipSpacingVertical="14dp"
-            app:layout_constraintBottom_toBottomOf="@+id/claimWin"
+            app:chipSpacingVertical= "-2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/subtractScore"
             app:layout_constraintStart_toEndOf="@+id/curScore"
-            app:layout_constraintTop_toTopOf="@+id/addScore">
+            app:layout_constraintTop_toTopOf="@+id/addScore"
+            app:layout_constraintVertical_bias="1.0">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/firstGrouping"
@@ -187,8 +188,8 @@
                 android:text="1 - 5"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                app:cornerRadius="128dp"
-                app:chipBackgroundColor="#C79636" />
+                app:chipBackgroundColor="#C79636"
+                app:cornerRadius="128dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/secondGrouping"
@@ -199,8 +200,10 @@
                 android:text="6 - 10"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                app:cornerRadius="128dp"
-                app:chipBackgroundColor="#538719" />
+                app:chipStartPadding="8dp"
+                app:chipEndPadding="8dp"
+                app:chipBackgroundColor="#538719"
+                app:cornerRadius="128dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/thirdGrouping"
@@ -212,8 +215,8 @@
                 android:text="11 - 15"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                app:cornerRadius="128dp"
-                app:chipBackgroundColor="#D01010" />
+                app:chipBackgroundColor="#D01010"
+                app:cornerRadius="128dp" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -221,7 +224,7 @@
             android:id="@+id/numWinsText"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:text="Wins"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/totalScoreText"
@@ -233,8 +236,8 @@
             android:id="@+id/totalScoreText"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:text="Total Score"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/ballGroupingContainer"
@@ -242,7 +245,7 @@
 
         <Button
             android:id="@+id/claimWin"
-            android:layout_width="176dp"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:alpha=".3"
             android:clickable="true"

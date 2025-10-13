@@ -3,15 +3,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_lobby"
-        android:title="Lobby"
-        android:icon="@drawable/ic_leaderboard" />
+        android:title="Lobby"/>
     <item
         android:id="@+id/nav_leaderboard"
-        android:title="Leaderboard"
-        android:icon="@drawable/ic_leaderboard" />
+        android:title="Leaderboard"/>
     <item
         android:id="@+id/nav_match_history"
-        android:title="Match History"
-        android:icon="@drawable/ic_leaderboard" />
+        android:title="Match History"/>
 
 </menu>
