@@ -28,28 +28,42 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        val lobbyFragment = LobbyFragment()
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-        // Configure the behavior of the hidden system bars.
+        val lobbyFragment = LobbyFragment()
+        val matchHistoryFragment = MatchHistoryFragment()
+        val leaderboardFragment = LeaderboardFragment()
+
+
+
         windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
 
-        setCurrentFragment(lobbyFragment)
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.fragmentView, lobbyFragment, "LOBBY")
+            add(R.id.fragmentView, matchHistoryFragment, "HISTORY")
+            add(R.id.fragmentView, leaderboardFragment, "LEADERBOARD")
+            hide(matchHistoryFragment)
+            hide(leaderboardFragment)
+        }.commit()
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_lobby -> setCurrentFragment(lobbyFragment)
+                R.id.nav_match_history -> setCurrentFragment(matchHistoryFragment)
+                R.id.nav_leaderboard -> setCurrentFragment(leaderboardFragment)
             }
             true
         }
 
     }
 
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentView, fragment)
-            commit()
-        }
+    private fun setCurrentFragment(fragment: Fragment) {
+        val currentFragment = supportFragmentManager.fragments.first() { it.isVisible }
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.hide(currentFragment)
+        transaction.show(fragment)
+        transaction.commit()
+    }
 }
 //    fun debug() {
 //        println(p1Claimed)

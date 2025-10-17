@@ -9,4 +9,12 @@
         android:id="@+id/lobbyFragment"
         android:name="com.example.app."
         android:label="Lobby" />
+    <fragment
+        android:id="@+id/matchHistoryFragment"
+        android:name="com.example.app."
+        android:label="Match History" />
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.example.app."
+        android:label="Lobby" />
 </navigation>

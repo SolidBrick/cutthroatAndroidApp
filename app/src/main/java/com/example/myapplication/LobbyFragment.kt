@@ -133,13 +133,14 @@ class LobbyFragment : Fragment() {
                 thirdGrouping.setClickable(false)
             }
             firstGroupClaimed = !firstGroupClaimed
-            claimedState[lobbyView.id] = !claimedState.getOrPut(lobbyView.id) {true}
+            claimedState[lobbyView.id] = !claimedState[lobbyView.id]!!
             restrictFirstGrouping(otherLobbyViews, firstGroupClaimed)
         }
 
         secondGrouping.setOnClickListener {
             if (secondGroupClaimed) { // Re-enable other groups
-                secondGrouping.chipStrokeWidth = 1f
+                secondGrouping.setAlpha(1f)
+                secondGrouping.chipStrokeWidth = 0f
                 if (!firstGroupClaimed) {
                     firstGrouping.setAlpha(1f)
                     firstGrouping.setClickable(true)
@@ -156,13 +157,14 @@ class LobbyFragment : Fragment() {
                 thirdGrouping.setClickable(false)
             }
             secondGroupClaimed = !secondGroupClaimed
-            claimedState[lobbyView.id] = !claimedState.getOrPut(lobbyView.id) {true}
+            claimedState[lobbyView.id] = !claimedState[lobbyView.id]!!
             restrictSecondGrouping(otherLobbyViews, secondGroupClaimed)
         }
 
         thirdGrouping.setOnClickListener {
             if (thirdGroupClaimed) { // Re-enable other groups
-                thirdGrouping.chipStrokeWidth = 1f
+                thirdGrouping.setAlpha(1f)
+                thirdGrouping.chipStrokeWidth = 0f
                 if (!firstGroupClaimed){
                     firstGrouping.setAlpha(1f)
                     firstGrouping.setClickable(true)
@@ -179,7 +181,7 @@ class LobbyFragment : Fragment() {
                 secondGrouping.setClickable(false)
             }
             thirdGroupClaimed = !thirdGroupClaimed
-            claimedState[lobbyView.id] = !claimedState.getOrPut(lobbyView.id) {true}
+            claimedState[lobbyView.id] = !claimedState[lobbyView.id]!!
             restrictThirdGrouping(otherLobbyViews, thirdGroupClaimed)
 
         }
