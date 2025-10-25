@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.filament.android)
     val roomVersion = "2.8.2"
     implementation("androidx.room:room-runtime:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")

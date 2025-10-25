@@ -9,13 +9,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.w3c.dom.Text
 
 class LobbyFragment : Fragment() {
     private var activePlayers = 0
+    private val playerViewModel: PlayerViewModel by viewModels()
     var firstGroupClaimed = false
     var secondGroupClaimed = false
     var thirdGroupClaimed = false
@@ -91,6 +91,7 @@ class LobbyFragment : Fragment() {
                 lobbyView.visibility = View.VISIBLE
                 addView.visibility = View.GONE
                 activePlayers++
+                playerViewModel.addPlayer(text)
             }
         }
 
@@ -259,10 +260,17 @@ class LobbyFragment : Fragment() {
 
     private fun endFrame(lobbyViews: List<View>) {
         lobbyViews.forEach { lobbyView ->
-            val scoreCount = lobbyView.findViewById<TextView>(R.id.curScore)
+            val scoreCount = lobbyView.findViewById<TextView>(R.id.curScore).text.toString().toInt()
             val totalScoreCount = lobbyView.findViewById<TextView>(R.id.totalScoreNum)
+            val playerName = lobbyView.findViewById<TextView>(R.id.playerName).text.toString()
 
-            lobbyView.setTag(R.id.totalScoreTag, lobbyView.getTag(R.id.totalScoreTag) as Int + scoreCount.text.toString().toInt())
+            if (scoreCount == 0) {
+                playerViewModel.addWin(playerName)
+            }
+            playerViewModel.addGamesPlayed(playerName)
+            playerViewModel.addBallsRemainingAndSunk(playerName, scoreCount)
+
+            lobbyView.setTag(R.id.totalScoreTag, lobbyView.getTag(R.id.totalScoreTag) as Int + scoreCount)
 
             totalScoreCount.text = lobbyView.getTag(R.id.totalScoreTag).toString()
         }
@@ -295,7 +303,6 @@ class LobbyFragment : Fragment() {
             thirdGrouping.chipStrokeWidth = 0f
         }
     }
-
 
     fun debug() {
         println("debug")

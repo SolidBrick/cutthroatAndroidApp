@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/playerName"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="5"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:text="playernametwentychar"
+        android:paddingEnd="8dp"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/playerBallsSunk"
+        android:layout_width="10dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/playerWins"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_height="32dp"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/playerGamesPlayed"
+        android:layout_width="10dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_height="32dp"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+
+
+
+</LinearLayout>
