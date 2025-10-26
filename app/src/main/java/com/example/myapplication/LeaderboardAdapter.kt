@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.db.Player
 
@@ -35,6 +36,14 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.PlayerViewHol
         holder.playerWinsText.text = player.wins.toString()
         holder.playerGamesPlayed.text = player.gamesPlayed.toString()
         holder.playerBallsSunkText.text = player.ballsSunk.toString()
+
+        holder.playerNameText.setOnClickListener {
+            val playerDetails = PlayerDetails(player)
+            playerDetails.show(
+                (holder.itemView.context as AppCompatActivity).supportFragmentManager,
+                "PlayerDetails"
+            )
+        }
     }
 
     override fun getItemCount(): Int = players.size

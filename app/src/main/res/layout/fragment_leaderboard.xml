@@ -43,7 +43,6 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center"
-            android:onClick="adapter"
             android:text="Balls Sunk"
             android:textSize="14sp"
             android:textStyle="bold" />
