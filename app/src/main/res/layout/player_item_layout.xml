@@ -10,11 +10,11 @@
         android:layout_width="0dp"
         android:layout_height="32dp"
         android:layout_gravity="center_vertical"
-        android:layout_weight="5"
+        android:layout_weight="4"
         android:maxLength="20"
         android:maxLines="1"
-        android:text="playernametwentychar"
         android:paddingEnd="8dp"
+        android:text="playernametwentychar"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
@@ -31,9 +31,9 @@
     <TextView
         android:id="@+id/playerWins"
         android:layout_width="wrap_content"
-        android:gravity="center"
-        android:layout_weight="1"
         android:layout_height="32dp"
+        android:layout_weight=".8"
+        android:gravity="center"
         android:text="0"
         android:textColor="@color/white"
         android:textSize="20sp" />
@@ -41,9 +41,9 @@
     <TextView
         android:id="@+id/playerGamesPlayed"
         android:layout_width="10dp"
-        android:gravity="center"
-        android:layout_weight="1"
         android:layout_height="32dp"
+        android:layout_weight="1.2"
+        android:gravity="center"
         android:text="0"
         android:textColor="@color/white"
         android:textSize="20sp" />

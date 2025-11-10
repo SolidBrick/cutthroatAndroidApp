@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 
 class PlayerViewModel() : ViewModel() {
     val playerDao = DBInitializer.APPDATABASE.getPlayerDao()
-    // Add matches dao after
 
     // Live data for the UI
     val allPlayers: Flow<List<Player>> = playerDao.getAllPlayers()

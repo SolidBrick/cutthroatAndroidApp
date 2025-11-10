@@ -9,4 +9,5 @@ abstract class AppDatabase : RoomDatabase() {
         const val NAME = "PLAYER_DB"
     }
     abstract fun getPlayerDao(): PlayerDao
+    abstract fun getRackDao(): RackDao
 }
