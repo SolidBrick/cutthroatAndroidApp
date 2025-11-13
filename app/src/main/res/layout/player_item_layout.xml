@@ -18,6 +18,7 @@
         android:textColor="@color/white"
         android:textSize="20sp" />
 
+
     <TextView
         android:id="@+id/playerBallsSunk"
         android:layout_width="10dp"

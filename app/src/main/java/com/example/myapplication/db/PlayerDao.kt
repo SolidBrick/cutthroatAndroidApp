@@ -11,6 +11,9 @@ interface PlayerDao {
     @Query("SELECT * FROM players")
     fun getAllPlayers(): Flow<List<Player>>
 
+    @Query("SELECT * FROM players WHERE playerName = :name")
+    suspend fun getPlayer(name: String): Player
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addPlayer(player: Player)
 

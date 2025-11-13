@@ -14,20 +14,20 @@ class RackViewModel : ViewModel() {
 
     val allRacks: Flow<List<Rack>> = rackDao.getAllRacks()
 
-    fun addRack(playerOne: Player,
-                playerTwo: Player,
-                playerThree: Player,
-                winner: Player,
+    fun addRack(playerOneName: String,
+                playerTwoName: String,
+                playerThreeName: String,
+                winnerName: String,
                 playerOneRemaining: Int,
                 playerTwoRemaining: Int,
                 playerThreeRemaining: Int,
         ) {
         viewModelScope.launch(Dispatchers.IO) {
             rackDao.addRack(Rack(
-                playerOne = playerOne,
-                playerTwo = playerTwo,
-                playerThree = playerThree,
-                winner = winner,
+                playerOneName = playerOneName,
+                playerTwoName = playerTwoName,
+                playerThreeName = playerThreeName,
+                winnerName = winnerName,
                 playerOneRemaining = playerOneRemaining,
                 playerTwoRemaining = playerTwoRemaining,
                 playerThreeRemaining = playerThreeRemaining,

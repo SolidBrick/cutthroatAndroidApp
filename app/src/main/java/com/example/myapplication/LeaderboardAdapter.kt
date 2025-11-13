@@ -38,7 +38,7 @@ class LeaderboardAdapter : RecyclerView.Adapter<LeaderboardAdapter.PlayerViewHol
         holder.playerBallsSunkText.text = player.ballsSunk.toString()
 
         holder.playerNameText.setOnClickListener {
-            val playerDetails = PlayerDetails(player)
+            val playerDetails = PlayerDetails(player.playerName)
             playerDetails.show(
                 (holder.itemView.context as AppCompatActivity).supportFragmentManager,
                 "PlayerDetails"

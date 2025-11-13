@@ -20,6 +20,10 @@ class PlayerViewModel() : ViewModel() {
         }
     }
 
+    suspend fun getPlayer(name:String): Player {
+        return playerDao.getPlayer(name)
+    }
+
     fun deletePlayer(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
             playerDao.deletePlayer(name)

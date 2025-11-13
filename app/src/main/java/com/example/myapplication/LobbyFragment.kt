@@ -10,12 +10,16 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.myapplication.db.Player
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 
 class LobbyFragment : Fragment() {
     private var activePlayers = 0
     private val playerViewModel: PlayerViewModel by viewModels()
+    private val rackViewModel: RackViewModel by viewModels()
     var firstGroupClaimed = false
     var secondGroupClaimed = false
     var thirdGroupClaimed = false
@@ -214,7 +218,10 @@ class LobbyFragment : Fragment() {
         claimWinBtn.setOnClickListener {
             totalWins += 1
             totalWinsCount.text = totalWins.toString()
-            endFrame(otherLobbyViews + lobbyView)
+            lifecycleScope.launch {
+                endFrame(otherLobbyViews + lobbyView)
+            }
+
         }
     }
 
@@ -258,15 +265,25 @@ class LobbyFragment : Fragment() {
 
     }
 
-    private fun endFrame(lobbyViews: List<View>) {
-        lobbyViews.forEach { lobbyView ->
+    suspend private fun endFrame(lobbyViews: List<View>) {
+        val players = Array<String>(3) { "" }
+        val remaining = Array<Int>(3) { 5 }
+        var winner: String = ""
+
+        for (i in 0 until 3) {
+            val lobbyView = lobbyViews[i]
             val scoreCount = lobbyView.findViewById<TextView>(R.id.curScore).text.toString().toInt()
             val totalScoreCount = lobbyView.findViewById<TextView>(R.id.totalScoreNum)
             val playerName = lobbyView.findViewById<TextView>(R.id.playerName).text.toString()
+            val player: Player = playerViewModel.getPlayer(playerName)
 
             if (scoreCount == 0) {
                 playerViewModel.addWin(playerName)
+                winner = playerName
             }
+
+            players[i] = playerName
+            remaining[i] = scoreCount
             playerViewModel.addGamesPlayed(playerName)
             playerViewModel.addBallsRemainingAndSunk(playerName, scoreCount)
 
@@ -274,6 +291,15 @@ class LobbyFragment : Fragment() {
 
             totalScoreCount.text = lobbyView.getTag(R.id.totalScoreTag).toString()
         }
+        rackViewModel.addRack(
+            playerOneName = players[0],
+            playerTwoName = players[1],
+            playerThreeName = players[2],
+            winnerName = winner,
+            playerOneRemaining = remaining[0],
+            playerTwoRemaining = remaining[1],
+            playerThreeRemaining = remaining[2],
+        )
         resetScoresAndGroupings(lobbyViews)
     }
 
