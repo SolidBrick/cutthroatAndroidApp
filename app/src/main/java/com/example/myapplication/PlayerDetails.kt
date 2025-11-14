@@ -33,23 +33,23 @@ class PlayerDetails(private val playerName: String) : BottomSheetDialogFragment(
             val games = player.gamesPlayed
             val ballsSunk = player.ballsSunk
             val ballsRemaining = player.totalRemainingBalls
-            var avgRemaining = 5
+            var avgRemaining: Double = 5.0
             var winrate: Double = 0.00
 
             if (games != 0) {
-                winrate = (wins.toDouble() / games.toDouble() * 100).toDouble()
-                avgRemaining = ballsRemaining / games
+                winrate = (wins.toDouble() / games.toDouble() * 100)
+                avgRemaining = ballsRemaining.toDouble() / games.toDouble()
             }
 
             println(winrate)
 
             binding.playerName.text = playerName
             binding.playerWins.text = "Wins: " + wins.toString()
-            binding.playerWinrate.text = "Winrate: " + winrate.toString() + "%"
+            binding.playerWinrate.text = "Winrate: " + "%.3f".format(winrate) + "%"
             binding.playerGamesPlayed.text = "Games played: " + games.toString()
             binding.playerBallsSunk.text = "Total balls sunk: " + ballsSunk.toString()
             binding.playerBallsRemaining.text = "Total balls remaining: " + ballsRemaining.toString()
-            binding.playerAvgBallsRemaining.text = "Average balls remaining: " + avgRemaining.toString()
+            binding.playerAvgBallsRemaining.text = "Average balls remaining: " + "%.3f".format(avgRemaining)
         }
     }
 
